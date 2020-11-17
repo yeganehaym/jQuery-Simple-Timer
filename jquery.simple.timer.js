@@ -215,7 +215,7 @@
           startTime += 1000;
   };
   Timer.prototype.currentTime = function() {
-    return Math.round((new Date()).getTime() / 1000);
+    return Math.round(startTime / 1000);
   };
 
   Timer.prototype.formatTimeLeft = function(timeLeft) {
