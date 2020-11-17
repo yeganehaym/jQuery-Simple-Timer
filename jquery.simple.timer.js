@@ -191,6 +191,7 @@
     this.setFinalValue(this.formatTimeLeft(timeLeft), element);
 
     intervalId = setInterval((function() {
+      this.forwardCurrentTime();
       timeLeft = endTime - this.currentTime();
       // When timer has been idle and only resumed past timeout,
       // then we immediatelly complete the timer.
@@ -210,6 +211,9 @@
     element.find('.jst-hours').text('00:');
   };
 
+  Timer.prototype.forwardCurrentTime = function () {
+          startTime += 1000;
+  };
   Timer.prototype.currentTime = function() {
     return Math.round((new Date()).getTime() / 1000);
   };
@@ -259,8 +263,9 @@
     element.find('.' + this._options.classNameHours).text(finalValues.pop() + ':');
   };
 
-
+var startTime;
   $.fn.startTimer = function(options) {
+    startTime= new Date().getTime();
     this.TimerObject = Timer;
     Timer.start(options, this);
     return this;
