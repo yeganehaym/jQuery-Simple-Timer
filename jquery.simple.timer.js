@@ -37,6 +37,7 @@
   var timer;
 
   var Timer = function(targetElement){
+     this.startTime = new Date().getTime();
     this._options = {};
     this.targetElement = targetElement;
     return this;
@@ -211,12 +212,13 @@
     element.find('.jst-hours').text('00:');
   };
 
-  Timer.prototype.forwardCurrentTime = function () {
-          startTime += 1000;
-  };
-  Timer.prototype.currentTime = function() {
-    return Math.round(startTime / 1000);
-  };
+    Timer.prototype.forwardCurrentTime = function () {
+        this.startTime += 1000;
+    };
+
+    Timer.prototype.currentTime = function () {
+        return Math.round(this.startTime / 1000);
+    };
 
   Timer.prototype.formatTimeLeft = function(timeLeft) {
 
@@ -263,9 +265,7 @@
     element.find('.' + this._options.classNameHours).text(finalValues.pop() + ':');
   };
 
-var startTime;
   $.fn.startTimer = function(options) {
-    startTime= new Date().getTime();
     this.TimerObject = Timer;
     Timer.start(options, this);
     return this;
